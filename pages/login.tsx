@@ -1,10 +1,11 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import LoginFormWidget from '../widgets/loginFormWidget/ui'
+import { NextPage } from 'next';
+import Head from 'next/head';
+
+import LoginFormWidget from '../widgets/loginFormWidget/ui';
 
 const Login: NextPage = () => {
 	return (
-		<div>
+		<>
 			<Head>
 				<title>LuxePay Admin Panel</title>
 				<link rel="icon" href="/favicon.ico" />
@@ -15,7 +16,7 @@ const Login: NextPage = () => {
 					<LoginFormWidget/>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 

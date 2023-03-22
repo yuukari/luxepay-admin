@@ -10,6 +10,16 @@ module.exports = {
     './shared/ui/**/*.{jsx,tsx}'
   ],
   theme: {
+    container: {
+      padding: '1rem',
+      screens: {
+        sm: '565px',
+        md: '767px',
+        lg: '993px',
+        xl: '1200px',
+        '2xl': '1440px',
+      },
+    },
     extend: {},
   },
   plugins: [
