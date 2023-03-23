@@ -7,6 +7,17 @@ const Navbar: FC = () => {
                 <div className="navbar-start">
                     <a className="btn btn-ghost normal-case text-xl pl-0" href="/dashboard">LuxePay Admin</a>
                 </div>
+
+                {/* <div className="navbar-center hidden md:flex">
+                    <ul className="menu menu-horizontal px-1">
+                        <li className="bordered">
+                            <a>Покупки</a>
+                        </li>
+                        <li>
+                            <a>Настройки</a>
+                        </li>
+                    </ul>
+                </div> */}
         
                 <div className="navbar-end">
                     <button className="btn btn-ghost btn-circle">

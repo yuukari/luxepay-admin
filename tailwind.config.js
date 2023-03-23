@@ -20,7 +20,18 @@ module.exports = {
         '2xl': '1440px',
       },
     },
-    extend: {},
+    extend: {
+      animation: {
+        fade: 'fadeOut 0.3s ease-in-out forwards',
+      },
+
+      keyframes: () => ({
+        fadeOut: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
+        },
+      })
+    },
   },
   plugins: [
     require('@tailwindcss/typography'),
