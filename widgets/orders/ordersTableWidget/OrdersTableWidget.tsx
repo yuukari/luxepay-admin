@@ -1,14 +1,31 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
+import OrdersTable from '../../../entities/orders/ordersTable/ui';
 import OrderShopFilter from '../../../features/orders/orderShopFilter/ui';
 import OrderSearchInput from '../../../features/orders/orderSearchInput/ui';
-import OrdersTable from '../../../entities/orders/ordersTable/ui';
-import OrdersPagination from '../../../entities/orders/ordersPagination/ui';
+import OrdersPagination from '../../../features/orders/ordersPagination/ui';
+
+import { useListOrdersQuery } from '../../../shared/api/orders';
+import Button from '../../../shared/ui/button';
 
 const OrdersTableWidget: FC = () => {
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
     const [shop, setShop] = useState("");
+
+    const { data: ordersData, isFetching, isError, refetch } = useListOrdersQuery({
+        page,
+        search,
+        shop
+    });
+
+    const orders = ordersData ? ordersData.orders : undefined;
+    const pagination = ordersData ? ordersData.pagination : undefined;
+    const hasError = isError || ordersData?.error;
+
+    useEffect(() => {
+        setPage(1);
+    }, [search, shop]);
 
     const handleSearchChange = (search: string) => {
         setSearch(search);
@@ -32,27 +49,41 @@ const OrdersTableWidget: FC = () => {
     }
 
     return <div className="mt-8">
-        <div className="flex mb-4 justify-end gap-4">
-            <OrderShopFilter/>
+        {!hasError && <div className="flex mb-4 justify-end gap-4">
+            <OrderShopFilter
+                value={shop}
+                onSelect={handleShopChange}
+            />
             <OrderSearchInput
                 value={search}
                 onChange={handleSearchChange}
             />
-        </div>
+        </div>}
 
-        <OrdersTable
-            page={page}
-            search={search}
-            shop={shop}
-        />
+        {!hasError && <OrdersTable
+            orders={orders}
+            isFetching={isFetching}
+        />}
 
-        <OrdersPagination
-            currentPage={page}
+        {(!isFetching && !hasError && pagination) && <OrdersPagination
+            pagination={pagination}
 
             onPageSelect={handlePageSelect}
             onNextClick={handleNextPageClick}
             onPrevClick={handlePrevPageClick}
-        />
+        />}
+
+        {(!isFetching && hasError) && <div className="mt-24 mx-auto w-fit min-w-[270px] p-6 bg-base-300 rounded-lg">
+            <p className="text-center text-red-400 text-sm">Ошибка загрузки данных</p>
+            {(ordersData && ordersData.error) && <p className="text-center text-red-400 text-sm">{ordersData.error}</p>}
+        
+            <Button
+                className="btn-sm w-fit mt-6 mx-auto block"
+                text="Обновить"
+
+                onClick={refetch}
+            />
+        </div>}
     </div>;
 };
 

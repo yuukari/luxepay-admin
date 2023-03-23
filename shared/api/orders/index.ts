@@ -19,9 +19,7 @@ export const ordersAPI = createApi({
                 }
             },
 
-            transformResponse: (response: ListOrdersResponse): OrdersData => {
-                console.log(response);
-                
+            transformResponse: (response: ListOrdersResponse): OrdersData => {                
                 if (response.status == 'ok')
                     return {
                         pagination: response.orders!.pagination,
@@ -29,8 +27,6 @@ export const ordersAPI = createApi({
                     }
                 else
                     return {
-                        pagination: undefined,
-                        orders: undefined,
                         error: response.message
                     }
             }

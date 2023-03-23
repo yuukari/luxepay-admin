@@ -6,7 +6,7 @@ import { Order } from '../../../../shared/api/orders/types';
 
 const OrdersTableRow: FC<Order> = (order) => {
     return <tr>
-        <th>{order.order}</th>
+        <td>{order.order}</td>
         <td><a href={`mailto:${order.email}`}>{order.email}</a></td>
         <td>{order.project}</td>
         <td>{(order.amount).toLocaleString('ru-RU')} ₽</td>
