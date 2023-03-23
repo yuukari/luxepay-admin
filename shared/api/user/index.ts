@@ -6,36 +6,65 @@ export const userAPI = createApi({
     reducerPath: 'user',
 
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://localhost/api'
+        baseUrl: 'https://api.dev-luxepay.com/admin',
+        credentials: 'include'
     }),
 
     endpoints: (builder) => ({
+        auth: builder.query<User, void>({
+            query: () => '/login',
+
+            transformResponse: (response: AuthResponse): User => {
+                if (response.status == 'ok')
+                    return {
+                        isLoggedIn: true
+                    }
+                else
+                    return {
+                        isLoggedIn: false,
+                        error: response.message
+                    }
+            }
+        }),
         login: builder.mutation<User, AuthBody>({
             query: (body) => ({
-                url: `/auth`,
+                url: `/login`,
                 method: 'POST',
                 body
             }),
 
-            transformResponse: (): User => {
-                return {
-                    isLoggedIn: true
-                }
-            },
-            transformErrorResponse: (error, meta): User => {
-                return {
-                    isLoggedIn: false,
-                    error: 'Неверное имя пользователя или пароль'
-                }
+            transformResponse: (response: AuthResponse): User => {
+                if (response.status == 'ok')
+                    return {
+                        isLoggedIn: true
+                    }
+                else
+                    return {
+                        isLoggedIn: false,
+                        error: response.message
+                    }
             }
         }),
-        logout: builder.mutation<null, void>({
-            query: () => '/logout'
+        logout: builder.mutation<User, void>({
+            query: () => '/logout',
+
+            transformResponse: (response: AuthResponse): User => {
+                if (response.status == 'ok')
+                    return {
+                        isLoggedIn: false
+                    }
+                else
+                    return {
+                        isLoggedIn: true,
+                        error: response.message
+                    }
+            }
         })
     })
 })
 
 export const {
+    useAuthQuery,
     useLoginMutation,
     useLogoutMutation
 } = userAPI;

@@ -1,10 +1,12 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 import Input from '../../../shared/ui/input';
 import Button from '../../../shared/ui/button';
+
+import { useLoginMutation } from '../../../shared/api/user';
 
 type LoginFormData = {
     username: string,
@@ -15,13 +17,25 @@ const LoginFormWidget: FC = () => {
     const router = useRouter();
 
     const [formError, setFormError] = useState<string | null>(null);
+    const [login, { isLoading, data: user }] = useLoginMutation();
 
     const handleSubmit = (values: LoginFormData) => {
-        if (values.username == 'admin' && values.password == '12345678')
-            return router.push('/dashboard');
-
-        setFormError('Неверное имя пользователя или пароль');
+        login({
+            username: values.username,
+            password: values.password
+        });
     }
+
+    useEffect(() => {
+        if (!user)
+            return;
+
+        if (user.isLoggedIn){
+            router.reload();
+        } else {
+            setFormError(user.error!);
+        }
+    }, [user]);
 
     const handleFormTouched = () => {
         setFormError(null);
@@ -81,7 +95,7 @@ const LoginFormWidget: FC = () => {
                 variant="primary"
                 type="submit"
 
-                disabled={!form.isValid}
+                disabled={!form.isValid || isLoading}
             />
         </form>
     </div>;

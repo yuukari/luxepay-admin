@@ -4,6 +4,8 @@ import Head from 'next/head';
 import Navbar from '../widgets/navbar/ui';
 import OrdersTableWidget from '../widgets/orders/ordersTableWidget';
 
+import withAuthProtection from '../shared/hoc/withAuthProtection';
+
 const DashboardPage: NextPage = () => {
 	return (
 		<>
@@ -23,4 +25,4 @@ const DashboardPage: NextPage = () => {
 	)
 }
 
-export default DashboardPage;
+export default withAuthProtection(DashboardPage);

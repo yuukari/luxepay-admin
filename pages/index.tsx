@@ -1,7 +1,25 @@
 import { NextPage } from 'next';
+import Head from 'next/head';
 
-const IndexPage: NextPage = () => {
-    return <></>
+import withAuthRedirect from '../shared/hoc/withAuthRedirect';
+
+import LoginFormWidget from '../widgets/loginFormWidget/ui';
+
+const Login: NextPage = () => {
+	return (
+		<>
+			<Head>
+				<title>LuxePay Admin Panel</title>
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
+
+			<div className="container mx-auto px-4">
+				<div className="h-screen flex justify-center items-center">
+					<LoginFormWidget/>
+				</div>
+			</div>
+		</>
+	)
 }
 
-export default IndexPage;
+export default withAuthRedirect(Login);
