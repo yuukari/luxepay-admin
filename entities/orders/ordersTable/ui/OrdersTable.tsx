@@ -1,7 +1,25 @@
 import { FC } from 'react';
-import Button from '../../../../shared/ui/button';
 
-const OrdersTable: FC = () => {
+import OrdersTableRow from '../../ordersTableRow/ui';
+import OrdersTableSkeletonRow from '../../ordersTableSkeletonRow/ui';
+
+import { useListOrdersQuery } from '../../../../shared/api/orders';
+
+type OrdersTableProps = {
+    page: number,
+    search?: string,
+    shop?: string
+}
+
+const OrdersTable: FC<OrdersTableProps> = (props) => {
+    const { page, search, shop } = props;
+    
+    const { data: ordersData, isFetching, isError } = useListOrdersQuery({
+        page,
+        search,
+        shop
+    });
+    
     return <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
             <thead>
@@ -14,135 +32,16 @@ const OrdersTable: FC = () => {
                     <th>Действия</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th>848914</th>
-                    <td><a href="mailto:me@example.com">me@example.com</a></td>
-                    <td>ValorantBest</td>
-                    <td>1 300 ₽</td>
-                    <td>23.03.23 в 18:52</td>
 
-                    <td>
-                        <Button
-                            className="btn-sm"
-                            variant="primary"
-                            text="Подтвердить оплату"
-                        />
-                    </td>
-                </tr>
+            {(!isFetching && !isError) && <tbody>
+                {(ordersData && ordersData.error == undefined) && ordersData.orders!.map(order => {
+                    return <OrdersTableRow {...order}/>
+                })}
+            </tbody>}
 
-                <tr>
-                    <th>848914</th>
-                    <td><a href="mailto:me@example.com">someverybigemail@example.com</a></td>
-                    <td>ValorantBest</td>
-                    <td>1 300 ₽</td>
-                    <td>23.03.23 в 18:52</td>
-
-                    <td>
-                        <p className=" uppercase text-sm font-semibold">Оплата подтверждена</p>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>848914</th>
-                    <td><a href="mailto:me@example.com">me@example.com</a></td>
-                    <td>ValorantBest</td>
-                    <td>1 300 ₽</td>
-                    <td>23.03.23 в 18:52</td>
-
-                    <td>
-                        <p className=" uppercase text-sm font-semibold">Оплата подтверждена</p>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>848914</th>
-                    <td><a href="mailto:me@example.com">me@example.com</a></td>
-                    <td>ValorantBest</td>
-                    <td>1 300 ₽</td>
-                    <td>23.03.23 в 18:52</td>
-
-                    <td>
-                        <p className=" uppercase text-sm font-semibold">Оплата подтверждена</p>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>848914</th>
-                    <td><a href="mailto:me@example.com">me@example.com</a></td>
-                    <td>ValorantBest</td>
-                    <td>1 300 ₽</td>
-                    <td>23.03.23 в 18:52</td>
-
-                    <td>
-                        <Button
-                            className="btn-sm"
-                            variant="primary"
-                            text="Подтвердить оплату"
-                        />
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>848914</th>
-                    <td><a href="mailto:me@example.com">me@example.com</a></td>
-                    <td>ValorantBest</td>
-                    <td>1 300 ₽</td>
-                    <td>23.03.23 в 18:52</td>
-
-                    <td>
-                        <p className=" uppercase text-sm font-semibold">Оплата подтверждена</p>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>848914</th>
-                    <td><a href="mailto:me@example.com">me@example.com</a></td>
-                    <td>ValorantBest</td>
-                    <td>1 300 ₽</td>
-                    <td>23.03.23 в 18:52</td>
-
-                    <td>
-                        <p className=" uppercase text-sm font-semibold">Оплата подтверждена</p>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>848914</th>
-                    <td><a href="mailto:me@example.com">me@example.com</a></td>
-                    <td>ValorantBest</td>
-                    <td>1 300 ₽</td>
-                    <td>23.03.23 в 18:52</td>
-
-                    <td>
-                        <p className=" uppercase text-sm font-semibold">Оплата подтверждена</p>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>848914</th>
-                    <td><a href="mailto:me@example.com">me@example.com</a></td>
-                    <td>ValorantBest</td>
-                    <td>1 300 ₽</td>
-                    <td>23.03.23 в 18:52</td>
-
-                    <td>
-                        <p className=" uppercase text-sm font-semibold">Оплата подтверждена</p>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>848914</th>
-                    <td><a href="mailto:me@example.com">me@example.com</a></td>
-                    <td>ValorantBest</td>
-                    <td>1 300 ₽</td>
-                    <td>23.03.23 в 18:52</td>
-
-                    <td>
-                        <p className=" uppercase text-sm font-semibold">Оплата подтверждена</p>
-                    </td>
-                </tr>
-            </tbody>
+            {isFetching && <tbody>
+                {[1,2,3,4,5,6,7,8,9,10].map(() => <OrdersTableSkeletonRow/>)}
+            </tbody>}
         </table>
     </div>
 };

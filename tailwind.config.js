@@ -23,6 +23,7 @@ module.exports = {
     extend: {
       animation: {
         fade: 'fadeOut 0.3s ease-in-out forwards',
+        'pulse-fast': 'pulse 1.5s infinite linear'
       },
 
       keyframes: () => ({

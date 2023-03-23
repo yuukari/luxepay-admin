@@ -9,11 +9,33 @@ export type Order = {
     item: string,
     project: string,
     label: string,
-    success_url: string
+    success_url: string,
+    ts: number, 
+    datetime: string
 }
 
-export type OrdersResponse = {
+export type Pagination = {
+    currentPage: number,
+    pagesCount: number
+}
+
+export type ListOrdersBody = {
+    page?: number,
+    search?: string,
+    shop?: string
+}
+
+export type ListOrdersResponse = {
     status: 'ok' | 'error',
-    orders: Order[],
+    orders?: {
+        pagination: Pagination,
+        data: Order[]
+    },
+    message?: string
+}
+
+export type OrdersData = {
+    pagination?: Pagination,
+    orders?: Order[],
     error?: string
 }
