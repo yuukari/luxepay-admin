@@ -19,6 +19,8 @@ export type Pagination = {
     pagesCount: number
 }
 
+/* List orders */
+
 export type ListOrdersBody = {
     page?: number,
     search?: string,
@@ -38,4 +40,16 @@ export type OrdersData = {
     pagination?: Pagination,
     orders?: Order[],
     error?: string
+}
+
+/* Approve order */
+
+export type ApproveOrderBody = {
+    order: string
+}
+
+export type ApproveOrderResponse = {
+    status: 'ok' | 'error',
+    order: Order,
+    message?: string
 }

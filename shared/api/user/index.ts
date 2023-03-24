@@ -6,7 +6,7 @@ export const userAPI = createApi({
     reducerPath: 'user',
 
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://api.dev-luxepay.com/admin',
+        baseUrl: 'https://api-luxepay.yuukari.online/admin',
         credentials: 'include'
     }),
 

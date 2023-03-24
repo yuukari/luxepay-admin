@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import Button from '../../../../shared/ui/button';
+import OrderApproveButton from '../../../../features/orders/orderApproveButton/ui';
 
 import { Order } from '../../../../shared/api/orders/types';
 
@@ -13,11 +13,7 @@ const OrdersTableRow: FC<Order> = (order) => {
 
         <td>
             {order.type == 'created' ? 
-                <Button
-                className="btn-sm"
-                variant="primary"
-                text="Подтвердить оплату"
-                />
+                <OrderApproveButton order={order.order}/>
                 :
                 <p className=" uppercase text-sm font-semibold">Оплата подтверждена</p>
             }
