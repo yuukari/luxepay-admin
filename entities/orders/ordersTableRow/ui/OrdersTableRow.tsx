@@ -6,23 +6,24 @@ import { Order } from '../../../../shared/api/orders/types';
 
 const OrdersTableRow: FC<Order> = (order) => {
     return <tr>
-        <td>{order.order}</td>
         <td><a href={`mailto:${order.email}`}>{order.email}</a></td>
         <td>{order.project}</td>
         <td>{(order.amount).toLocaleString('ru-RU')} ₽</td>
-        <td>{order.datetime}</td>
+        <td>{order.order}</td>
 
         <td>
             {order.type == 'created' ? 
                 <Button
-                    className="btn-sm"
-                    variant="primary"
-                    text="Подтвердить оплату"
+                className="btn-sm"
+                variant="primary"
+                text="Подтвердить оплату"
                 />
-            :
+                :
                 <p className=" uppercase text-sm font-semibold">Оплата подтверждена</p>
             }
         </td>
+
+        <td>{order.datetime}</td>
     </tr>
 };
 

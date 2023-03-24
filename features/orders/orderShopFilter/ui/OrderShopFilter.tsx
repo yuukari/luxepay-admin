@@ -25,7 +25,7 @@ const OrderShopFilter: FC<OrderShopFilterProps> = (props) => {
 
         onChange={handleChange}
     >
-        <option selected={value == ""} value="">Все магазины</option>
+        <option selected={value == ""} value="">Все проекты</option>
         {(!hasError && shops) && shops.map((shop, i) => {
             return <option value={shop} key={i}>{shop}</option>
         })}

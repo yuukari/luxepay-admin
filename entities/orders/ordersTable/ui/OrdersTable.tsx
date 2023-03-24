@@ -17,12 +17,12 @@ const OrdersTable: FC<OrdersTableProps> = (props) => {
         <table className="table table-zebra w-full">
             <thead>
                 <tr>
-                    <th style={{ position: 'inherit' }}>Номер заказа</th>
-                    <th>E-Mail</th>
-                    <th>Магазин</th>
+                    <th style={{ position: 'inherit' }}>E-Mail</th>
+                    <th>Проект</th>
                     <th>Сумма оплаты</th>
-                    <th>Дата оплаты</th>
+                    <th>Номер заказа</th>
                     <th>Действия</th>
+                    <th>Дата оплаты</th>
                 </tr>
             </thead>
 

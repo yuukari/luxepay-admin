@@ -19,19 +19,24 @@ const OrdersPagination: FC<OrdersPaginationProps> = (props) => {
     for (let i = 1; i <= pagination.pagesCount; i++)
         pages.push(i);
 
+    const scrollToBottom = () => {
+        // if (window !== undefined)
+        //     window.scrollTo(0, document.body.scrollHeight);
+    }
+
     return <div className="mt-8 w-full">
         {pages.length > 1 && <div className="btn-group mx-auto w-fit">
             <button 
                 className="btn" 
                 disabled={pagination.currentPage == 1}
                 
-                onClick={onPrevClick}
+                onClick={() => { onPrevClick(); scrollToBottom(); }}
             >«</button>
         
             {pages.map((page) => {
                 return <button 
                     className={cn(["btn", {"btn-active": page == pagination.currentPage}])}
-                    onClick={() => { onPageSelect(page) }}
+                    onClick={() => { onPageSelect(page); scrollToBottom(); }}
                 >{page.toString()}</button>
             })}
 
@@ -39,7 +44,7 @@ const OrdersPagination: FC<OrdersPaginationProps> = (props) => {
                 className="btn"
                 disabled={pagination.currentPage == pagination.pagesCount}
             
-                onClick={onNextClick}
+                onClick={() => { onNextClick(); scrollToBottom(); }}
             >»</button>
         </div>}
     </div>
