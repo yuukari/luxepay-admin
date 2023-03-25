@@ -1,6 +1,5 @@
 module.exports = {
   mode: "jit",
-  // purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false,
   content: [
     './pages/**/*.{jsx,tsx}', 
@@ -22,11 +21,16 @@ module.exports = {
     },
     extend: {
       animation: {
-        fade: 'fadeOut 0.3s ease-in-out forwards',
+        'fade-in': 'fadeIn 0.3s ease-in-out forwards',
+        'fade-out': 'fadeOut 0.3s ease-in-out forwards',
         'pulse-fast': 'pulse 1.5s infinite linear'
       },
 
       keyframes: () => ({
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
         fadeOut: {
           '0%': { opacity: 1 },
           '100%': { opacity: 0 },

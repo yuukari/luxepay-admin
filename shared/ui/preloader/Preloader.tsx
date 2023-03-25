@@ -24,7 +24,7 @@ const Preloader: FC = () => {
     
     return <div className={cn([
         "w-full h-screen bg-base-200 fixed top-0 left-0 flex justify-center items-center z-[100]",
-        {["animate-fade"]: !loading},
+        {["animate-fade-out"]: !loading},
         {["hidden"]: hidden}
     ])}>
         <div className="w-32 h-32 text-gray-400">
