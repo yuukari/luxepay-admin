@@ -53,3 +53,8 @@ export type ApproveOrderResponse = {
     order: Order,
     message?: string
 }
+
+export type ApproveOrderData = {
+    order?: Order,
+    error?: string
+}

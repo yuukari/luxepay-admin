@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { OrdersData, ListOrdersBody, ListOrdersResponse, ApproveOrderBody, Order, ApproveOrderResponse } from './types';
+import { OrdersData, ListOrdersBody, ListOrdersResponse, ApproveOrderBody, ApproveOrderResponse, ApproveOrderData } from './types';
 
 export const ordersAPI = createApi({
     reducerPath: 'orders',
@@ -34,32 +34,30 @@ export const ordersAPI = createApi({
                     }
             }
         }),
-        approveOrder: builder.mutation<Order, ApproveOrderBody>({
-            invalidatesTags: ['orders'],
-
+        approveOrder: builder.mutation<ApproveOrderData, ApproveOrderBody>({
             query: (body) => ({
                 url: `/approve-order`,
                 method: 'POST',
                 body
             }),
 
-            transformResponse: (response: ApproveOrderResponse): Order => {
-                return response.order;
+            transformResponse: (response: ApproveOrderResponse): ApproveOrderData => {
+                if (response.status == 'ok')
+                    return {
+                        order: response.order
+                    }
+                else
+                    return {
+                        error: response.message
+                    }
             },
 
             async onQueryStarted(body, { dispatch, queryFulfilled }) {
                 try {
-                    await queryFulfilled;
-                    ordersAPI.util.invalidateTags(['orders']);
+                    const approveResponse = await queryFulfilled;
 
-                    // const patchResult = dispatch(
-                    //     ordersAPI.util.updateQueryData('listOrders', {}, (draft) => {
-                    //         if (draft.orders){
-                                
-                    //         }
-                    //         // Object.assign(draft, updatedOrder)
-                    //     })
-                    // )
+                    if (approveResponse.data.error == undefined)
+                        dispatch(ordersAPI.util.invalidateTags(['orders']))
                 } catch {}
             },
         }),

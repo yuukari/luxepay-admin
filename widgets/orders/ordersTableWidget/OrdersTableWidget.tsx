@@ -4,9 +4,11 @@ import OrdersTable from '../../../entities/orders/ordersTable/ui';
 import OrderShopFilter from '../../../features/orders/orderShopFilter/ui';
 import OrderSearchInput from '../../../features/orders/orderSearchInput/ui';
 import OrdersPagination from '../../../features/orders/ordersPagination/ui';
+import Button from '../../../shared/ui/button';
 
 import { useListOrdersQuery } from '../../../shared/api/orders';
-import Button from '../../../shared/ui/button';
+
+import { useOrdersNotifications } from '../../../features/orders/ordersNotifications/hooks';
 
 const OrdersTableWidget: FC = () => {
     const [page, setPage] = useState(1);
@@ -22,6 +24,8 @@ const OrdersTableWidget: FC = () => {
     const orders = ordersData ? ordersData.orders : undefined;
     const pagination = ordersData ? ordersData.pagination : undefined;
     const hasError = isError || ordersData?.error;
+
+    useOrdersNotifications();
 
     useEffect(() => {
         setPage(1);
