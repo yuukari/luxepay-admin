@@ -14,10 +14,6 @@ function App({ Component, pageProps }: AppProps) {
 	const router = useRouter();
 
 	return <Provider store={store}>
-		{/* {router.asPath.length > 1 && <Navbar/>}
-
-		<Component {...pageProps}/> */}
-
 		{router.asPath.length > 1 ? 
 			<Navbar>
 				<Component {...pageProps}/>

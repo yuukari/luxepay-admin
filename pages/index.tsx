@@ -13,9 +13,11 @@ const Login: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<div className="container mx-auto px-4">
-				<div className="h-screen flex justify-center items-center">
-					<LoginFormWidget/>
+			<div className="bg-base-300">
+				<div className="container mx-auto px-4">
+					<div className="h-screen flex justify-center items-center">
+						<LoginFormWidget/>
+					</div>
 				</div>
 			</div>
 		</>

@@ -2,11 +2,11 @@ module.exports = {
   mode: "jit",
   darkMode: true,
   content: [
-    './pages/**/*.{jsx,tsx}', 
-    './entities/**/*.{jsx,tsx}',
-    './features/**/*.{jsx,tsx}',
-    './widgets/**/*.{jsx,tsx}',
-    './shared/ui/**/*.{jsx,tsx}'
+    './pages/**/*.{ts,tsx}', 
+    './entities/**/*.{ts,tsx}',
+    './features/**/*.{ts,tsx}',
+    './widgets/**/*.{ts,tsx}',
+    './shared/ui/**/*.{ts,tsx}'
   ],
   theme: {
     container: {

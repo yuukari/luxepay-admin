@@ -14,10 +14,27 @@ type OrdersPaginationProps = {
 const OrdersPagination: FC<OrdersPaginationProps> = (props) => {
     const { pagination, onPageSelect, onNextClick, onPrevClick } = props;
 
-    const pages: number[] = [];
+    let pages: any[] = [];
 
     for (let i = 1; i <= pagination.pagesCount; i++)
         pages.push(i);
+
+    if (pagination.currentPage <= 3)
+        pages = pages.splice(0, 7);
+    else if (pagination.currentPage >= pagination.pagesCount - 3)
+        pages = pages.splice(pagination.pagesCount - 7, 7);
+    else
+        pages = pages.splice(pagination.currentPage - 4, 7);
+
+    if (pagination.currentPage > 4){
+        pages[0] = 1;
+        pages[1] = '...';
+    }
+
+    if (pagination.currentPage < pagination.pagesCount - 3){
+        pages[5] = '...';
+        pages[6] = pagination.pagesCount;
+    }
 
     const scrollToBottom = () => {
         // if (window !== undefined)

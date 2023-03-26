@@ -16,6 +16,8 @@ const Preloader: FC = () => {
     }
 
     useEffect(() => {
+        setTimeout(() => hidePreloader, 500);
+        
         if (window != undefined){
             window.onload = hidePreloader;
             return () => { window.onload = null; }

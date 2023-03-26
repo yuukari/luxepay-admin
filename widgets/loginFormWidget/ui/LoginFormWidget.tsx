@@ -22,7 +22,7 @@ const LoginFormWidget: FC = () => {
     const dispatch = useAppDispatch();
 
     const [formError, setFormError] = useState<string | null>(null);
-    const [login, { isLoading, data: user }] = useLoginMutation(); // use shared mutation or set auth query isLoggedIn to true
+    const [login, { isLoading, data: user }] = useLoginMutation();
 
     const handleSubmit = (values: LoginFormData) => {
         login({
@@ -73,7 +73,7 @@ const LoginFormWidget: FC = () => {
         onSubmit: handleSubmit,
     });
 
-    return <div className="max-w-md w-full bg-base-300 p-8 rounded-lg">
+    return <div className="max-w-md w-full bg-base-100 p-8 rounded-lg">
         <h1 className="text-center text-lg">Авторизация</h1>
         
 
