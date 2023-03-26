@@ -2,12 +2,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { SessionsData, SessionsResponse, TerminateSessionBody, TerminateSessionData, TerminateSessionResponse } from './types';
 
+import { apiUrl } from '../../config';
+
 export const sessionsAPI = createApi({
     reducerPath: 'sessions',
     tagTypes: ['sessions'],
 
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://api-luxepay.yuukari.online/admin',
+        baseUrl: apiUrl,
         credentials: 'include'
     }),
 

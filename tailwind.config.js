@@ -8,6 +8,9 @@ module.exports = {
     './widgets/**/*.{ts,tsx}',
     './shared/ui/**/*.{ts,tsx}'
   ],
+  daisyui: {
+    themes: ['dark']
+  },
   theme: {
     container: {
       padding: '1rem',

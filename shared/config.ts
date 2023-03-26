@@ -1,0 +1,1 @@
+export const apiUrl = 'https://api-luxepay.yuukari.online/admin';

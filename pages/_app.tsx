@@ -24,7 +24,7 @@ function App({ Component, pageProps }: AppProps) {
 		
 		<NotificationsList/>
 
-		<Preloader/>
+		{/* <Preloader/> */}
 	</Provider>
 }
 

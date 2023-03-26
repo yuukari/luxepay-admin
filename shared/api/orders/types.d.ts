@@ -1,5 +1,7 @@
 export type OrderType = 'created' | 'paid';
 
+export type OrderPaymentMethod = 'qiwi' | null;
+
 export type Order = {
     order: string,
     type: OrderType,
@@ -11,7 +13,8 @@ export type Order = {
     label: string,
     success_url: string,
     ts: number, 
-    datetime: string
+    datetime: string,
+    payment_method: OrderPaymentMethod
 }
 
 export type Pagination = {

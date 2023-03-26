@@ -2,11 +2,13 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { User, AuthBody, AuthResponse } from './types';
 
+import { apiUrl } from '../../config';
+
 export const userAPI = createApi({
     reducerPath: 'user',
 
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://api-luxepay.yuukari.online/admin',
+        baseUrl: apiUrl,
         credentials: 'include'
     }),
 

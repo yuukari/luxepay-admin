@@ -2,12 +2,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { OrdersData, ListOrdersBody, ListOrdersResponse, ApproveOrderBody, ApproveOrderResponse, ApproveOrderData } from './types';
 
+import { apiUrl } from '../../config';
+
 export const ordersAPI = createApi({
     reducerPath: 'orders',
     tagTypes: ['orders'],
 
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://api-luxepay.yuukari.online/admin',
+        baseUrl: apiUrl,
         credentials: 'include'
     }),
 
