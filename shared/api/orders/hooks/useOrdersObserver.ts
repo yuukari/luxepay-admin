@@ -2,19 +2,21 @@ import { useEffect } from "react";
 import { useApproveOrderMutation } from "..";
 
 export const useOrdersObserver = (onOrderApproveSuccess?: () => void, onOrderApproveError?: () => void) => {
-    const [, { isLoading, isSuccess, isError } ] = useApproveOrderMutation({
+    const [, { isLoading, isSuccess, isError, reset } ] = useApproveOrderMutation({
         fixedCacheKey: 'sharedApproveOrder'
     });
 
-    console.log('isLoading:', isLoading, 'isSuccess:', isSuccess, 'isError:', isError);
-
     useEffect(() => {
-        if (!isLoading && isSuccess && onOrderApproveSuccess != undefined)
+        if (!isLoading && isSuccess && onOrderApproveSuccess != undefined){
             onOrderApproveSuccess();
+            reset();
+        }
     }, [isLoading, isSuccess]);
 
     useEffect(() => {
-        if (!isLoading && isError && onOrderApproveError != undefined)
+        if (!isLoading && isError && onOrderApproveError != undefined){
             onOrderApproveError();
+            reset();
+        }
     }, [isLoading, isSuccess]);
 }

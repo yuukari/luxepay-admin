@@ -1,6 +1,6 @@
 module.exports = {
   mode: "jit",
-  darkMode: false,
+  darkMode: true,
   content: [
     './pages/**/*.{jsx,tsx}', 
     './entities/**/*.{jsx,tsx}',

@@ -1,7 +1,9 @@
 import { FC, MouseEvent } from 'react';
 import cn from 'classnames';
 
-type ButtonVariant = 'primary' | 'secondary';
+import { useButtonVariant } from './hooks';
+
+import { ButtonVariant } from './types';
 
 type ButtonProps = {
     className?: string,
@@ -9,6 +11,7 @@ type ButtonProps = {
     text: string,
     type?: 'button' | 'submit' | 'reset',
     variant?: ButtonVariant,
+    outline?: boolean,
     disabled?: boolean,
 
     onClick?: (e: MouseEvent<HTMLButtonElement>) => void
@@ -17,16 +20,19 @@ type ButtonProps = {
 const Button: FC<ButtonProps> = (props) => {
     const {
         className,
-        text, type, variant, disabled,
+        text, type, variant, outline, disabled,
 
         onClick
     } = props;
+
+    const buttonVariant = useButtonVariant(variant);
   
     return <button 
         className={cn([
             className,
             "btn",
-            {['btn-primary']: variant == 'primary'}
+            buttonVariant,
+            {"btn-outline": outline}
         ])}
         type={type ?? 'button'}
         disabled={disabled}

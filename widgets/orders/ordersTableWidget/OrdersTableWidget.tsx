@@ -31,6 +31,10 @@ const OrdersTableWidget: FC = () => {
         setPage(1);
     }, [search, shop]);
 
+    useEffect(() => {
+        refetch();
+    }, []);
+
     const handleSearchChange = (search: string) => {
         setSearch(search);
     }
