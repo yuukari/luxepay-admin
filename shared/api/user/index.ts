@@ -36,14 +36,27 @@ export const userAPI = createApi({
             transformResponse: (response: AuthResponse): User => {
                 if (response.status == 'ok')
                     return {
-                        isLoggedIn: true
+                        isLoggedIn: true,
+                        ipInfo: response.ipInfo
                     }
                 else
                     return {
                         isLoggedIn: false,
                         error: response.message
                     }
-            }
+            },
+
+            async onQueryStarted(body, { dispatch, queryFulfilled }) {
+                try {
+                    const queryResponse = await queryFulfilled;
+
+                    if (queryResponse.data.error == undefined)
+                        dispatch(userAPI.util.updateQueryData('auth', undefined, (draft) => {
+                            draft.isLoggedIn = queryResponse.data.isLoggedIn;
+                            draft.ipInfo = queryResponse.data.ipInfo;
+                        }))
+                } catch {}
+            },
         }),
         logout: builder.mutation<User, void>({
             query: () => '/logout',

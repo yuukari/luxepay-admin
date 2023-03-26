@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import OrdersTableRow from '../../ordersTableRow/ui';
-import OrdersTableSkeletonRow from '../../ordersTableSkeletonRow/ui';
+import TableSkeletonRow from '../../../../shared/ui/tableSkeletonRow';
 
 import { Order } from '../../../../shared/api/orders/types';
 
@@ -33,11 +33,11 @@ const OrdersTable: FC<OrdersTableProps> = (props) => {
             </tbody>}
 
             {isFetching && <tbody>
-                <OrdersTableSkeletonRow/>
-                <OrdersTableSkeletonRow/>
-                <OrdersTableSkeletonRow/>
-                <OrdersTableSkeletonRow/>
-                <OrdersTableSkeletonRow/>
+                <TableSkeletonRow columns={6}/>
+                <TableSkeletonRow columns={6}/>
+                <TableSkeletonRow columns={6}/>
+                <TableSkeletonRow columns={6}/>
+                <TableSkeletonRow columns={6}/>
             </tbody>}
         </table>
     </div>

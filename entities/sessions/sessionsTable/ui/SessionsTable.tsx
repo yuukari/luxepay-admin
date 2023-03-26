@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import SessionsTableRow from '../../sessionsTableRow/ui';
+import TableSkeletonRow from '../../../../shared/ui/tableSkeletonRow';
 
 import { Session } from '../../../../shared/api/sessions/types';
 
@@ -29,9 +30,13 @@ const SessionsTable: FC<SessionsTableProps> = (props) => {
                 })}
             </tbody>}
 
-            {/* {isFetching && <tbody>
-                Loading
-            </tbody>} */}
+            {isFetching && <tbody>
+                <TableSkeletonRow columns={4}/>
+                <TableSkeletonRow columns={4}/>
+                <TableSkeletonRow columns={4}/>
+                <TableSkeletonRow columns={4}/>
+                <TableSkeletonRow columns={4}/>
+            </tbody>}
         </table>
     </div>
 };

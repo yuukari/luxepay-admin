@@ -6,7 +6,10 @@ import * as yup from 'yup';
 import Input from '../../../shared/ui/input';
 import Button from '../../../shared/ui/button';
 
+import { useAppDispatch } from '../../../shared/hooks';
 import { useLoginMutation } from '../../../shared/api/user';
+
+import { addNotification } from '../../../entities/notifications/notificationsList/model';
 
 type LoginFormData = {
     username: string,
@@ -16,8 +19,10 @@ type LoginFormData = {
 const LoginFormWidget: FC = () => {
     const router = useRouter();
 
+    const dispatch = useAppDispatch();
+
     const [formError, setFormError] = useState<string | null>(null);
-    const [login, { isLoading, data: user }] = useLoginMutation();
+    const [login, { isLoading, data: user }] = useLoginMutation(); // use shared mutation or set auth query isLoggedIn to true
 
     const handleSubmit = (values: LoginFormData) => {
         login({
@@ -31,7 +36,15 @@ const LoginFormWidget: FC = () => {
             return;
 
         if (user.isLoggedIn){
-            router.reload();
+            if (user.ipInfo && user.ipInfo.changed)
+                dispatch(addNotification({
+                    title: 'Вход с нового IP адреса',
+                    message: `В прошлый раз вы входили в панель с IP: ${user.ipInfo.last}. Ваш текущий IP: ${user.ipInfo.current}`,
+                    type: 'warning',
+                    autoClose: false
+                }));
+
+            router.push('/dashboard');
         } else {
             setFormError(user.error!);
         }
