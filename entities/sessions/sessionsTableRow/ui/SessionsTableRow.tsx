@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import Button from '../../../../shared/ui/button';
+import SessionTerminateButton from '../../../../features/sessions/sessionTerminateButton/ui';
 
 import { Session } from '../../../../shared/api/sessions/types';
 
@@ -24,10 +24,9 @@ const SessionsTableRow: FC<Session> = (session) => {
         <td>{session.datetime}</td>
 
         <td>
-            <Button
-                className='btn-sm'
-                text='Завершить'
-                disabled={session.current}
+            <SessionTerminateButton
+                id={session.id}
+                current={session.current}
             />
         </td>
     </tr>

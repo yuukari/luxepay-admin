@@ -54,9 +54,9 @@ export const ordersAPI = createApi({
 
             async onQueryStarted(body, { dispatch, queryFulfilled }) {
                 try {
-                    const approveResponse = await queryFulfilled;
+                    const queryResponse = await queryFulfilled;
 
-                    if (approveResponse.data.error == undefined)
+                    if (queryResponse.data.error == undefined)
                         dispatch(ordersAPI.util.invalidateTags(['orders']))
                 } catch {}
             },

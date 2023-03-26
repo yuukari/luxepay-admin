@@ -1,13 +1,17 @@
 import { FC, useEffect } from 'react';
+
 import SessionsTable from '../../../entities/sessions/sessionsTable/ui';
 
 import { useSessionsQuery } from '../../../shared/api/sessions';
+import { useSessionsNotifications } from '../../../features/sessions/sessionsNotifications/hooks';
 
 const SessionsTableWidget: FC = () => {
     const { data: sessionsData, isFetching, isError, refetch } = useSessionsQuery();
 
     const sessions = sessionsData ? sessionsData.sessions : undefined;
     const hasError = isError || sessionsData?.error;
+
+    useSessionsNotifications();
 
     useEffect(() => {
         refetch();
